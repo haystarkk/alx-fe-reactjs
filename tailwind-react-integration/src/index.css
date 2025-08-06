@@ -1,3 +1,6 @@
+/* This file contains Tailwind CSS setup */
+
+/* Importing tailwindcss directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
