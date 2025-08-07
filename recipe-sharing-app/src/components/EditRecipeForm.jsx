@@ -10,8 +10,8 @@ const EditRecipeForm = ({ recipe }) => {
   });
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {  // Changed parameter name to 'event'
+    event.preventDefault();  // Added preventDefault()
     updateRecipe(recipe.id, {
       ...formData,
       ingredients: formData.ingredients.split('\n')
