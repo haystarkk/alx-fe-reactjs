@@ -33,6 +33,7 @@ const SearchUser = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Enter GitHub username"
+          required
         />
         <button type="submit" disabled={loading}>
           {loading ? 'Searching...' : 'Search'}
@@ -40,22 +41,14 @@ const SearchUser = () => {
       </form>
 
       {loading && <p className="status-message">Loading...</p>}
-      {error && <p className="status-message error">{error}</p>}
+      {error && <p className="status-message error">Looks like we can't find the user</p>}
 
       {userData && (
         <div className="user-result">
-          <img 
-            src={userData.avatar_url} 
-            alt={userData.login} 
-            width="100" 
-          />
+          <img src={userData.avatar_url} alt={userData.login} width="100" />
           <h2>{userData.name || userData.login}</h2>
           <p>{userData.bio || 'No bio available'}</p>
-          <a 
-            href={userData.html_url} 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
+          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
             View Profile
           </a>
         </div>
