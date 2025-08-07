@@ -39,3 +39,42 @@
   font-style: italic;
   color: #666;
 }
+/* Favorites */
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+.favorite-btn.active {
+  color: #ff4757;
+}
+
+/* Recommendations */
+.recommendations-list {
+  margin-bottom: 2rem;
+}
+
+.recommendations-list .recipe-card {
+  background: #f8f9fa;
+  border-left: 4px solid #ffd700;
+}
+
+.categories {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.empty-state {
+  color: #666;
+  font-style: italic;
+  padding: 1rem;
+  text-align: center;
+}
