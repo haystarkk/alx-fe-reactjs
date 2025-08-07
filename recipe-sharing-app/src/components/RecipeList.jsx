@@ -1,20 +1,19 @@
+import React from 'react';
 import useRecipeStore from '../stores/recipeStore';
+import RecipeCard from './RecipeCard';
 
 const RecipeList = () => {
-  const { recipes, removeRecipe } = useRecipeStore();
+  const filteredRecipes = useRecipeStore((state) => state.getFilteredRecipes());
 
   return (
     <div className="recipe-list">
-      <h2>Recipes</h2>
-      {recipes.map((recipe) => (
-        <div key={recipe.id} className="recipe-card">
-          <h3>{recipe.title}</h3>
-          <p>{recipe.description}</p>
-          <button onClick={() => removeRecipe(recipe.id)}>
-            Remove
-          </button>
-        </div>
-      ))}
+      {filteredRecipes.length > 0 ? (
+        filteredRecipes.map((recipe) => (
+          <RecipeCard key={recipe.id} recipe={recipe} />
+        ))
+      ) : (
+        <p className="no-results">No recipes match your search criteria.</p>
+      )}
     </div>
   );
 };
