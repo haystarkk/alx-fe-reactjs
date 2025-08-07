@@ -1,4 +1,4 @@
-import SearchUser from './components/SearchUser';
+import Search from './components/Search';
 import './index.css';
 
 function App() {
