@@ -3,10 +3,10 @@ import axios from 'axios';
 export const fetchUserData = async (username) => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_APP_GITHUB_API_URL}/users/${username}`
+      `https://api.github.com/users/${username}`  // Direct URL instead of env variable
     );
     return { data: response.data, error: null };
   } catch (error) {
-    return { data: null, error: "Looks like we can't find the user" };
+    return { data: null, error: "Looks like we cant find the user" };
   }
 };
