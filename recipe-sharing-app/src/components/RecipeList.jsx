@@ -1,7 +1,7 @@
 import useRecipeStore from '../stores/recipeStore';
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+  const { recipes, removeRecipe } = useRecipeStore();
 
   return (
     <div className="recipe-list">
@@ -10,6 +10,9 @@ const RecipeList = () => {
         <div key={recipe.id} className="recipe-card">
           <h3>{recipe.title}</h3>
           <p>{recipe.description}</p>
+          <button onClick={() => removeRecipe(recipe.id)}>
+            Remove
+          </button>
         </div>
       ))}
     </div>
