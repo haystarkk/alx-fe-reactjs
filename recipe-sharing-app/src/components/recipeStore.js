@@ -2,44 +2,52 @@ import { create } from 'zustand';
 
 const useRecipeStore = create((set, get) => ({
   recipes: [],
-  searchTerm: '',
-  filters: {
-    ingredients: '',
-    maxCookingTime: '',
-    difficulty: ''
-  },
+  favorites: [],
+  recommendations: [],
   
-  // Actions
+  // Recipe actions
   addRecipe: (newRecipe) => set((state) => ({
     recipes: [...state.recipes, { ...newRecipe, id: Date.now() }]
   })),
   
-  setSearchTerm: (term) => set({ searchTerm: term }),
+  // Favorite actions
+  addFavorite: (recipeId) => set((state) => {
+    if (!state.favorites.includes(recipeId)) {
+      return { favorites: [...state.favorites, recipeId] };
+    }
+    return state;
+  }),
   
-  setFilter: (filterName, value) => set((state) => ({
-    filters: { ...state.filters, [filterName]: value }
+  removeFavorite: (recipeId) => set((state) => ({
+    favorites: state.favorites.filter(id => id !== recipeId)
   })),
   
-  getFilteredRecipes: () => {
-    const { recipes, searchTerm, filters } = get();
+  toggleFavorite: (recipeId) => set((state) => ({
+    favorites: state.favorites.includes(recipeId)
+      ? state.favorites.filter(id => id !== recipeId)
+      : [...state.favorites, recipeId]
+  })),
+  
+  // Recommendation actions
+  generateRecommendations: () => set((state) => {
+    const favoriteCategories = state.recipes
+      .filter(recipe => state.favorites.includes(recipe.id))
+      .flatMap(recipe => recipe.categories || []);
     
-    return recipes.filter(recipe => {
-      const matchesSearch = recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          recipe.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesIngredients = filters.ingredients ? 
-        recipe.ingredients?.some(ing => 
-          ing.toLowerCase().includes(filters.ingredients.toLowerCase())
-        ) : true;
-      
-      const matchesTime = filters.maxCookingTime ?
-        recipe.cookingTime <= parseInt(filters.maxCookingTime) : true;
-      
-      const matchesDifficulty = filters.difficulty ?
-        recipe.difficulty === filters.difficulty : true;
-      
-      return matchesSearch && matchesIngredients && matchesTime && matchesDifficulty;
-    });
+    const recommended = state.recipes
+      .filter(recipe => 
+        !state.favorites.includes(recipe.id) &&
+        recipe.categories?.some(cat => favoriteCategories.includes(cat))
+      )
+      .slice(0, 5);
+    
+    return { recommendations: recommended };
+  }),
+  
+  // Getter functions
+  getFavoriteRecipes: () => {
+    const { recipes, favorites } = get();
+    return recipes.filter(recipe => favorites.includes(recipe.id));
   }
 }));
 
