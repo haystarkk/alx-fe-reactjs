@@ -2,14 +2,25 @@ import { create } from 'zustand';
 
 const useRecipeStore = create((set) => ({
   recipes: [
-    { id: 1, title: 'Pasta Carbonara', description: 'Classic Italian pasta dish with eggs, cheese, and pancetta' },
-    { id: 2, title: 'Vegetable Stir Fry', description: 'Quick and healthy vegetable dish' }
+    { 
+      id: 1, 
+      title: 'Spaghetti Carbonara', 
+      description: 'Classic Italian pasta with eggs, cheese, and pancetta' 
+    },
+    { 
+      id: 2, 
+      title: 'Greek Salad', 
+      description: 'Fresh vegetables with feta cheese and olives' 
+    }
   ],
   addRecipe: (newRecipe) => 
-    set((state) => ({ 
-      recipes: [...state.recipes, { ...newRecipe, id: Date.now() }] 
+    set((state) => ({
+      recipes: [...state.recipes, { ...newRecipe, id: Date.now() }]
     })),
-  setRecipes: (recipes) => set({ recipes })
+  removeRecipe: (id) =>
+    set((state) => ({
+      recipes: state.recipes.filter((recipe) => recipe.id !== id)
+    }))
 }));
 
 export default useRecipeStore;
