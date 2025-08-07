@@ -24,3 +24,14 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Environment
+.env
+.env.local
+
+# Build
+dist/
+node_modules/
+
+# IDE
+.vscode/
+.idea/
