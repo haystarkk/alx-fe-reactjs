@@ -6,6 +6,7 @@ const Search = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [location, setLocation] = useState(''); // Add location state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +15,8 @@ const Search = () => {
     setLoading(true);
     setError(null);
     
-    const { data, error } = await fetchUserData(username);
+    // Include location in the API call
+    const { data, error } = await fetchUserData(username, location); // Pass location
     
     setLoading(false);
     if (error) {
@@ -35,6 +37,13 @@ const Search = () => {
           placeholder="Enter GitHub username"
           required
         />
+        {/* Add location input field */}
+        <input
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Filter by location (optional)"
+        />
         <button type="submit" disabled={loading}>
           {loading ? 'Searching...' : 'Search'}
         </button>
@@ -43,23 +52,12 @@ const Search = () => {
       {loading && <p className="status-message">Loading...</p>}
       {error && <p className="status-message error">{error}</p>}
 
-      {/* Example of map usage - adjust according to your actual data structure */}
-      {Array.isArray(userData) && userData.map((user) => (
-        <div key={user.id} className="user-result">
-          <img src={user.avatar_url} alt={user.login} width="100" />
-          <h2>{user.name || user.login}</h2>
-          <p>{user.bio || 'No bio available'}</p>
-          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-            View Profile
-          </a>
-        </div>
-      ))}
-      
-      {/* For single user result */}
-      {userData && !Array.isArray(userData) && (
+      {userData && (
         <div className="user-result">
           <img src={userData.avatar_url} alt={userData.login} width="100" />
           <h2>{userData.name || userData.login}</h2>
+          {/* Display location if available */}
+          {userData.location && <p>📍 {userData.location}</p>}
           <p>{userData.bio || 'No bio available'}</p>
           <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
             View Profile
