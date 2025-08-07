@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { fetchUserData } from '../services/githubService'; // Make sure this import exists
+import { fetchUserData } from '../services/githubService';
 
 const Search = () => {
   const [username, setUsername] = useState('');
@@ -14,7 +14,6 @@ const Search = () => {
     setLoading(true);
     setError(null);
     
-    // This is where fetchUserData is called
     const { data, error } = await fetchUserData(username);
     
     setLoading(false);
@@ -44,7 +43,20 @@ const Search = () => {
       {loading && <p className="status-message">Loading...</p>}
       {error && <p className="status-message error">{error}</p>}
 
-      {userData && (
+      {/* Example of map usage - adjust according to your actual data structure */}
+      {Array.isArray(userData) && userData.map((user) => (
+        <div key={user.id} className="user-result">
+          <img src={user.avatar_url} alt={user.login} width="100" />
+          <h2>{user.name || user.login}</h2>
+          <p>{user.bio || 'No bio available'}</p>
+          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+            View Profile
+          </a>
+        </div>
+      ))}
+      
+      {/* For single user result */}
+      {userData && !Array.isArray(userData) && (
         <div className="user-result">
           <img src={userData.avatar_url} alt={userData.login} width="100" />
           <h2>{userData.name || userData.login}</h2>
