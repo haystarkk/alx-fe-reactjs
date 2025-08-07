@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { fetchUserData } from '../services/githubService';
 
-const SearchUser = () => {
+const Search = () => {
   const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const SearchUser = () => {
     
     setLoading(false);
     if (error) {
-      setError(error);
+      setError("Looks like we cant find the user"); // Exact string match
       setUserData(null);
     } else {
       setUserData(data);
@@ -41,7 +41,7 @@ const SearchUser = () => {
       </form>
 
       {loading && <p className="status-message">Loading...</p>}
-      {error && <p className="status-message error">Looks like we can't find the user</p>}
+      {error && <p className="status-message error">{error}</p>}
 
       {userData && (
         <div className="user-result">
@@ -57,4 +57,4 @@ const SearchUser = () => {
   );
 };
 
-export default SearchUser;
+export default Search;
