@@ -5,46 +5,31 @@ const useRecipeStore = create((set, get) => ({
   favorites: [],
   recommendations: [],
   
-  // Recipe actions
-  addRecipe: (newRecipe) => set((state) => ({
-    recipes: [...state.recipes, { ...newRecipe, id: Date.now() }]
-  })),
-  
-  // Favorite actions
-  addFavorite: (recipeId) => set((state) => {
-    if (!state.favorites.includes(recipeId)) {
-      return { favorites: [...state.favorites, recipeId] };
-    }
-    return state;
-  }),
-  
-  removeFavorite: (recipeId) => set((state) => ({
-    favorites: state.favorites.filter(id => id !== recipeId)
-  })),
-  
+  // Add/remove favorites
   toggleFavorite: (recipeId) => set((state) => ({
     favorites: state.favorites.includes(recipeId)
       ? state.favorites.filter(id => id !== recipeId)
       : [...state.favorites, recipeId]
   })),
   
-  // Recommendation actions
-  generateRecommendations: () => set((state) => {
-    const favoriteCategories = state.recipes
-      .filter(recipe => state.favorites.includes(recipe.id))
+  // Generate recommendations based on favorites
+  generateRecommendations: () => {
+    const { recipes, favorites } = get();
+    const favoriteCategories = recipes
+      .filter(recipe => favorites.includes(recipe.id))
       .flatMap(recipe => recipe.categories || []);
     
-    const recommended = state.recipes
-      .filter(recipe => 
-        !state.favorites.includes(recipe.id) &&
-        recipe.categories?.some(cat => favoriteCategories.includes(cat))
-      )
-      .slice(0, 5);
-    
-    return { recommendations: recommended };
-  }),
+    set({
+      recommendations: recipes
+        .filter(recipe => 
+          !favorites.includes(recipe.id) &&
+          recipe.categories?.some(cat => favoriteCategories.includes(cat))
+        )
+        .slice(0, 5)
+    });
+  },
   
-  // Getter functions
+  // Get favorite recipes with full data
   getFavoriteRecipes: () => {
     const { recipes, favorites } = get();
     return recipes.filter(recipe => favorites.includes(recipe.id));
