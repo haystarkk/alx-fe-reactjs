@@ -1,27 +1,33 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useRecipeStore from '../stores/recipeStore';
 
 const FavoritesList = () => {
-  const favoriteRecipes = useRecipeStore((state) => state.getFavoriteRecipes());
+  const favorites = useRecipeStore(state => state.getFavoriteRecipes());
+  const generateRecommendations = useRecipeStore(state => state.generateRecommendations);
+
+  // Update recommendations when favorites change
+  useEffect(() => {
+    generateRecommendations();
+  }, [favorites.length, generateRecommendations]);
 
   return (
-    <div className="favorites-list">
-      <h2>⭐ My Favorite Recipes</h2>
-      {favoriteRecipes.length > 0 ? (
-        <div className="recipes-grid">
-          {favoriteRecipes.map((recipe) => (
-            <div key={recipe.id} className="recipe-card">
+    <div className="favorites-container">
+      <h2>My Favorites</h2>
+      {favorites.length > 0 ? (
+        <div className="favorites-grid">
+          {favorites.map(recipe => (
+            <div key={recipe.id} className="favorite-card">
               <Link to={`/recipes/${recipe.id}`}>
                 <h3>{recipe.title}</h3>
                 <p>{recipe.description}</p>
+                <span className="favorite-badge">❤️ Favorite</span>
               </Link>
-              <FavoriteButton recipeId={recipe.id} />
             </div>
           ))}
         </div>
       ) : (
-        <p className="empty-state">You haven't favorited any recipes yet!</p>
+        <p className="empty-message">No favorites yet. Start adding some!</p>
       )}
     </div>
   );
