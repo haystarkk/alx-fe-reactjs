@@ -62,3 +62,24 @@ button:disabled {
   color: #0366d6;
   text-decoration: none;
 }
+/* Add these new styles */
+.search-container {
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.status-message {
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+.status-message.error {
+  color: #dc3545;
+}
+
+.user-result {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+}
