@@ -4,7 +4,7 @@ import useRecipeStore from '../stores/recipeStore';
 const AddRecipeForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const addRecipe = useRecipeStore((state) => state.addRecipe);
+  const { addRecipe } = useRecipeStore();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,8 +15,7 @@ const AddRecipeForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="recipe-form">
-      <h2>Add New Recipe</h2>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         value={title}
