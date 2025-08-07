@@ -3,8 +3,12 @@
 A React application to search GitHub users using the GitHub API.
 
 ## Features
-- Search for GitHub users
-- Display user cards with avatars and profile links
+- Search for GitHub users by username
+- Display user avatar, name, bio, and profile link
+- Loading and error states handling
+
+## API Endpoint Used
+`GET https://api.github.com/users/{username}`
 
 ## Setup
 1. Clone the repo:
