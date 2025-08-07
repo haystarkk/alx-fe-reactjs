@@ -1,11 +1,10 @@
-import Search from './components/Search';
-import './index.css';
+import React from 'react';
 
 function App() {
   return (
     <div className="app">
       <h1>GitHub User Search</h1>
-      <SearchUser />
+      {/* Your search component will render here */}
     </div>
   );
 }
