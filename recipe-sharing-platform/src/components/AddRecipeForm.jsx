@@ -8,17 +8,18 @@ const AddRecipeForm = () => {
     summary: '',
     image: '',
     ingredients: '',
-    instructions: ''
+    steps: '', // Added steps field
+    prepTime: '',
+    cookTime: ''
   });
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // Includes target.value
     setFormData({
       ...formData,
       [name]: value
     });
-    // Clear error when user types
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -32,9 +33,8 @@ const AddRecipeForm = () => {
     if (!formData.title.trim()) newErrors.title = 'Recipe title is required';
     if (!formData.summary.trim()) newErrors.summary = 'Summary is required';
     if (!formData.ingredients.trim()) newErrors.ingredients = 'Ingredients are required';
-    if (!formData.instructions.trim()) newErrors.instructions = 'Instructions are required';
+    if (!formData.steps.trim()) newErrors.steps = 'Steps are required'; // Validation for steps
     
-    // Additional validation for ingredients format
     if (formData.ingredients.trim() && formData.ingredients.split('\n').filter(i => i.trim()).length < 2) {
       newErrors.ingredients = 'Please enter at least 2 ingredients';
     }
@@ -46,8 +46,14 @@ const AddRecipeForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // In a real app, you would send this data to your backend
-      console.log('Form submitted:', formData);
+      // Format the data before submission
+      const recipeData = {
+        ...formData,
+        id: Date.now(), // Temporary ID
+        instructions: formData.steps.split('\n').filter(step => step.trim()), // Convert steps to array
+        ingredients: formData.ingredients.split('\n').filter(ing => ing.trim()) // Convert ingredients to array
+      };
+      console.log('Form submitted:', recipeData);
       alert('Recipe submitted successfully!');
       navigate('/');
     }
@@ -58,6 +64,7 @@ const AddRecipeForm = () => {
       <h1 className="text-3xl font-bold text-center mb-8">Add New Recipe</h1>
       
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Title Field */}
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
             Recipe Title *
@@ -76,6 +83,7 @@ const AddRecipeForm = () => {
           {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title}</p>}
         </div>
 
+        {/* Summary Field */}
         <div>
           <label htmlFor="summary" className="block text-sm font-medium text-gray-700 mb-1">
             Short Summary *
@@ -94,6 +102,7 @@ const AddRecipeForm = () => {
           {errors.summary && <p className="mt-1 text-sm text-red-600">{errors.summary}</p>}
         </div>
 
+        {/* Image Field */}
         <div>
           <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
             Image URL
@@ -109,6 +118,7 @@ const AddRecipeForm = () => {
           />
         </div>
 
+        {/* Ingredients Field */}
         <div>
           <label htmlFor="ingredients" className="block text-sm font-medium text-gray-700 mb-1">
             Ingredients * (one per line)
@@ -127,22 +137,55 @@ const AddRecipeForm = () => {
           {errors.ingredients && <p className="mt-1 text-sm text-red-600">{errors.ingredients}</p>}
         </div>
 
+        {/* Steps Field */}
         <div>
-          <label htmlFor="instructions" className="block text-sm font-medium text-gray-700 mb-1">
-            Instructions * (one step per line)
+          <label htmlFor="steps" className="block text-sm font-medium text-gray-700 mb-1">
+            Preparation Steps * (one step per line)
           </label>
           <textarea
-            id="instructions"
-            name="instructions"
-            value={formData.instructions}
+            id="steps"
+            name="steps"
+            value={formData.steps}
             onChange={handleChange}
             rows={7}
             className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-              errors.instructions ? 'border-red-500' : 'border-gray-300'
+              errors.steps ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="1. Preheat oven to 350°F\n2. Mix dry ingredients\n3. Add wet ingredients"
           />
-          {errors.instructions && <p className="mt-1 text-sm text-red-600">{errors.instructions}</p>}
+          {errors.steps && <p className="mt-1 text-sm text-red-600">{errors.steps}</p>}
+        </div>
+
+        {/* Time Fields */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="prepTime" className="block text-sm font-medium text-gray-700 mb-1">
+              Prep Time (minutes)
+            </label>
+            <input
+              type="number"
+              id="prepTime"
+              name="prepTime"
+              value={formData.prepTime}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              min="0"
+            />
+          </div>
+          <div>
+            <label htmlFor="cookTime" className="block text-sm font-medium text-gray-700 mb-1">
+              Cook Time (minutes)
+            </label>
+            <input
+              type="number"
+              id="cookTime"
+              name="cookTime"
+              value={formData.cookTime}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              min="0"
+            />
+          </div>
         </div>
 
         <div className="flex justify-end space-x-4">
@@ -166,3 +209,4 @@ const AddRecipeForm = () => {
 };
 
 export default AddRecipeForm;
+  
