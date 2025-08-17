@@ -3,18 +3,50 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/300"
+    "image": "https://via.placeholder.com/800x400?text=Spaghetti+Carbonara",
+    "ingredients": [
+      "400g spaghetti",
+      "200g pancetta or guanciale",
+      "4 large eggs",
+      "50g pecorino cheese",
+      "50g parmesan",
+      "Freshly ground black pepper",
+      "Salt"
+    ],
+    "instructions": [
+      "Bring a large pot of salted water to boil and cook spaghetti al dente",
+      "While pasta cooks, fry pancetta until crispy",
+      "Whisk eggs and grated cheeses together",
+      "Drain pasta, reserving some cooking water",
+      "Quickly mix hot pasta with egg mixture, adding pancetta and pepper",
+      "Add pasta water as needed to create creamy sauce",
+      "Serve immediately with extra cheese and pepper"
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/300"
-  },
-  {
-    "id": 3,
-    "title": "Vegetable Stir Fry",
-    "summary": "Quick and healthy mix of fresh vegetables with a savory sauce.",
-    "image": "https://via.placeholder.com/300"
+    "image": "https://via.placeholder.com/800x400?text=Chicken+Tikka+Masala",
+    "ingredients": [
+      "500g chicken breast",
+      "150g yogurt",
+      "2 tbsp tikka masala spice mix",
+      "1 onion, diced",
+      "3 garlic cloves",
+      "400g canned tomatoes",
+      "100ml cream",
+      "Fresh coriander",
+      "2 tbsp vegetable oil"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and spices for 2 hours",
+      "Grill or bake chicken until cooked through",
+      "Sauté onions and garlic until soft",
+      "Add tomatoes and simmer for 10 minutes",
+      "Blend sauce until smooth",
+      "Add chicken and cream, simmer for 5 minutes",
+      "Garnish with fresh coriander"
+    ]
   }
 ]
