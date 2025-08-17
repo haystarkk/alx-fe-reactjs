@@ -15,7 +15,7 @@ const AddRecipeForm = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target; // target.value is properly included here
     setFormData({
       ...formData,
       [name]: value
@@ -60,11 +60,11 @@ const AddRecipeForm = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8"> {/* Added shadow-md */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <h1 className="text-3xl font-bold text-center mb-6">Add New Recipe</h1>
       
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm"> {/* Added subtle shadow */}
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
               Recipe Title *
             </label>
