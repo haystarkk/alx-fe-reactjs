@@ -35,7 +35,7 @@ const RegistrationForm = () => {
       newErrors.username = 'Username is required';
     }
     
-    if (!email.trim()) {
+    if (!email) {
       newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = 'Please enter a valid email address';
