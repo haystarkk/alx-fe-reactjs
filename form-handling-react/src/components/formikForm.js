@@ -9,14 +9,11 @@ const FormikForm = () => {
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string()
-      .required('Username is required')
+    username: Yup.string().required('Username is required')
       .min(3, 'Username must be at least 3 characters'),
-    email: Yup.string()
-      .required('Email is required')
+    email: Yup.string().required('Email is required')
       .email('Please enter a valid email address'),
-    password: Yup.string()
-      .required('Password is required')
+    password: Yup.string().required('Password is required')
       .min(6, 'Password must be at least 6 characters')
   });
 
@@ -36,6 +33,7 @@ const FormikForm = () => {
       resetForm();
     } catch (error) {
       console.error('Registration failed:', error);
+      alert('Registration failed. Please try again.');
     } finally {
       setSubmitting(false);
     }
@@ -44,6 +42,7 @@ const FormikForm = () => {
   return (
     <div className="form-container">
       <h2>Registration Form (Formik)</h2>
+      <p className="form-description">This form uses Formik for state management and Yup for validation.</p>
       
       <Formik
         initialValues={initialValues}
