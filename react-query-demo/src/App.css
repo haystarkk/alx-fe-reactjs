@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.posts-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.toggle-btn, .refetch-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn {
+  background-color: #6a11cb;
+  color: white;
+}
+
+.refetch-btn {
+  background-color: #2575fc;
+  color: white;
+}
+
+.refetch-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.toggle-btn:hover, .refetch-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.posts-list h2 {
+  color: #6a11cb;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+}
+
+.cache-info {
+  background-color: #e9ecef;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-style: italic;
+}
+
+.posts-list ul {
+  list-style: none;
+}
+
+.post-item {
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 15px;
+}
+
+.post-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.post-item h3 {
+  color: #495057;
+  margin-bottom: 10px;
+}
+
+.post-item p {
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #6a11cb;
+}
+
+.error {
+  text-align: center;
+  padding: 40px;
+  font-size: 1.2rem;
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .posts-container {
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+}
