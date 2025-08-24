@@ -1,46 +1,49 @@
 import { useState } from 'react';
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
-  });
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-    
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: ''
-      });
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (errors.username) {
+      setErrors({...errors, username: ''});
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (errors.email) {
+      setErrors({...errors, email: ''});
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (errors.password) {
+      setErrors({...errors, password: ''});
     }
   };
 
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.username.trim()) {
+    if (!username.trim()) {
       newErrors.username = 'Username is required';
     }
     
-    if (!formData.email.trim()) {
+    if (!email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = 'Please enter a valid email address';
     }
     
-    if (!formData.password) {
+    if (!password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
+    } else if (password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
     
@@ -58,6 +61,7 @@ const RegistrationForm = () => {
     
     // Simulate API call
     try {
+      const formData = { username, email, password };
       const response = await fetch('https://jsonplaceholder.typicode.com/users', {
         method: 'POST',
         headers: {
@@ -71,11 +75,9 @@ const RegistrationForm = () => {
       setIsSubmitted(true);
       
       // Reset form
-      setFormData({
-        username: '',
-        email: '',
-        password: ''
-      });
+      setUsername('');
+      setEmail('');
+      setPassword('');
     } catch (error) {
       console.error('Registration failed:', error);
     }
@@ -87,7 +89,7 @@ const RegistrationForm = () => {
       
       {isSubmitted && (
         <div className="success-message">
-          Registration successful! Welcome, {formData.username}!
+          Registration successful! Welcome, {username}!
         </div>
       )}
       
@@ -98,8 +100,8 @@ const RegistrationForm = () => {
             type="text"
             id="username"
             name="username"
-            value={formData.username}
-            onChange={handleChange}
+            value={username}
+            onChange={handleUsernameChange}
             placeholder="Enter your username"
           />
           {errors.username && <div className="error">{errors.username}</div>}
@@ -111,8 +113,8 @@ const RegistrationForm = () => {
             type="email"
             id="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={handleEmailChange}
             placeholder="Enter your email"
           />
           {errors.email && <div className="error">{errors.email}</div>}
@@ -124,8 +126,8 @@ const RegistrationForm = () => {
             type="password"
             id="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={handlePasswordChange}
             placeholder="Enter your password"
           />
           {errors.password && <div className="error">{errors.password}</div>}
