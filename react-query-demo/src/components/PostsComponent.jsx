@@ -18,6 +18,8 @@ const PostsComponent = () => {
     {
       staleTime: 5000, // Data becomes stale after 5 seconds
       cacheTime: 30000, // Cache persists for 30 seconds
+      refetchOnWindowFocus: false,
+      keepPreviousData: true
     }
   );
 
