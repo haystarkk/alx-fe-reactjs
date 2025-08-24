@@ -5,6 +5,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import Profile from './components/Profile';
 import Blog from './components/Blog';
+import BlogPost from './components/BlogPost';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './hooks/useAuth';
@@ -21,7 +22,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:postId" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
             <Route 
               path="/profile/*" 
               element={
